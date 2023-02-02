@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,27 +20,39 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider } from 'react-redux';
+import { StoreProvider } from "react-redux";
+import NavigationProvider from './screens/Navigation.js'
 import Start from "./screens/Start";
 import SignIn from "./screens/SignIn";
+import Home from './screens/Home.js';
+import Today from './screens/Today.js'
+import { NavigationContainer } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 
-const App: () => Node = () => {
+export default function App () {
  
-  return (
-   /*initialRouteName='Start'*/
+    return (
     <NavigationContainer>
-    <Stack.Navigator> 
-    <Stack.Screen name="SignIn" component={SignIn} options={{headerShown: false}}/>
+    <Stack.Navigator>
     <Stack.Screen name="Start" component={Start} options={{headerShown: false}}/>
-    
+      <Stack.Screen name="Home" component={Home}/>
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="Today" component={Today} />
     </Stack.Navigator>
     </NavigationContainer>
-    
   );
-};
+}
 
-export default App;
+
+
+{/* <StoreProvider store={store}>
+      <View>
+        <NavigationProvider />
+        </View>
+ </StoreProvider>
+
+    
+    initialRouteName='Start'*/ }
